@@ -1,0 +1,17 @@
+object dm: Tdm
+  OldCreateOrder = False
+  Height = 150
+  Width = 215
+  object IBDatabase1: TIBDatabase
+    Connected = True
+    DatabaseName = 'D:\InfoMais\DADOS\BANCO.fdb'
+    Params.Strings = (
+      'user_name=SYSDBA'
+      'password=masterkey'
+      'lc_ctype=WIN1252')
+    LoginPrompt = False
+    ServerType = 'IBServer'
+    Left = 88
+    Top = 56
+  end
+end

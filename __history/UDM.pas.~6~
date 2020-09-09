@@ -1,0 +1,44 @@
+unit UDM;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, IBDatabase, System.iniFiles,
+  Uformatacao,
+  Vcl.Dialogs;
+
+type
+  Tdm = class(TDataModule)
+    IBDatabase1: TIBDatabase;
+    procedure DataModuleDestroy(Sender: TObject);
+    procedure DataModuleCreate(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dm: Tdm;
+
+implementation
+
+{ %CLASSGROUP 'System.Classes.TPersistent' }
+
+{$R *.dfm}
+
+
+
+
+procedure Tdm.DataModuleCreate(Sender: TObject);
+begin
+ IBDatabase1.Connected := True;
+end;
+
+procedure Tdm.DataModuleDestroy(Sender: TObject);
+begin
+ IBDatabase1.Connected := False;
+end;
+
+end.

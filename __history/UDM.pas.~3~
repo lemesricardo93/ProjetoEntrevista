@@ -1,0 +1,68 @@
+unit UDM;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, IBDatabase, System.iniFiles,
+  Vcl.Dialogs;
+
+type
+  Tdm = class(TDataModule)
+    IBDatabase1: TIBDatabase;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dm: Tdm;
+
+implementation
+
+{ %CLASSGROUP 'System.Classes.TPersistent' }
+
+{$R *.dfm}
+
+procedure Tdm.DataModuleCreate(Sender: TObject);
+var
+  WFile: TIniFile;
+  strCaminho: string;
+begin
+  try
+    try
+      strCaminho := (ExtractFilePath(Application.ExeName) + 'CnfInfo.ini');
+      if (not FileExists(strCaminho)) then
+      begin
+        WFile := TIniFile.Create(ExtractFilePath(Application.ExeName) +
+          'CnfInfo.ini');
+        WFile.WriteString('ConfiguracaoLocal', 'CaminhoBanco',
+          'D:\InfoMais\DADOS\BANCO.fdb');
+      end;
+    except
+      on E: Exception do
+      begin
+        ShowMessage('Erro ao Criar Arquivo ini ' + 'motivo:');
+      end;
+    end;
+  finally
+    try
+      IBDatabase1.Connected := False;
+      IBDatabase1.DataBaseName := LeIni('CnfInfo.ini', 'ConfiguracaoLocal',
+        'CaminhoBanco');
+      IBDatabase1.LoginPrompt := False;
+      IBDatabase1.Connected := True;
+    except
+      on E: Exception do
+      begin
+        ShowMessage('Erro ao Conectar no Banco' + 'Motivo');
+      end;
+
+    finally
+
+    end;
+  end;
+end;
+
+end.

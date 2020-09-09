@@ -1,0 +1,17 @@
+program InfoMais;
+
+uses
+  Vcl.Forms,
+  UTelaPrincial in 'UTelaPrincial.pas' {Form1},
+  UDM in 'UDM.pas' {DataModule1: TDataModule},
+  UTELACONSULTA in 'UTELACONSULTA.pas' {Form2};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.Run;
+end.
